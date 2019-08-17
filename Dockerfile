@@ -20,12 +20,9 @@ RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && echo "LANG=en_US.UTF-8" > /etc/locale.conf && locale-gen en_US.UTF-8
 #    && rm -rf /var/lib/apt/lists/*
 
-COPY ./ /app
+COPY ./app /app
 WORKDIR app
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
-EXPOSE 1397
-CMD ["python3", "manage.py", "collectstatic"]
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:1397"]
-
+CMD ["main.py"]
